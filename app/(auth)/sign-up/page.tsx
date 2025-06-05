@@ -1,7 +1,17 @@
+import { signUp } from '@/app/actions/auth-actions'
+
+import AuthForm from '@/app/components/auth-form'
+
 export default function SignUp() {
 	return (
-		<div>
-			<h1 className='text-2xl font-bold mb-4'>SignUp</h1>
-		</div>
+		<AuthForm
+			action={signUp}
+			fields={[
+				{ name: 'username', type: 'text', placeholder: 'Username' },
+				{ name: 'email', type: 'email', placeholder: 'Email' },
+				{ name: 'password', type: 'password', placeholder: 'Password' },
+			]}
+			buttonText='Sign Up'
+		/>
 	)
 }
