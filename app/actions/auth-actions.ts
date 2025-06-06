@@ -60,3 +60,10 @@ export async function signIn(_: any, formData: FormData) {
 		return { error: 'Something went wrong. Please try again.' }
 	}
 }
+
+export async function signOut() {
+	const cookiesStore = await cookies()
+	cookiesStore.delete('token')
+
+	return { success: true }
+}

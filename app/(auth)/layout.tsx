@@ -1,3 +1,5 @@
+import LogoutButton from '../components/logout-button'
+
 export default function AuthLayout({
 	children,
 }: {
@@ -7,6 +9,7 @@ export default function AuthLayout({
 		<div className='min-h-screen flex items-center justify-center bg-gray-900 text-white'>
 			<div className='w-full max-w-md p-8 bg-gray-800 rounded shadow'>
 				{children}
+				<LogoutButton />
 			</div>
 		</div>
 	)
