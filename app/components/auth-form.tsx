@@ -2,7 +2,7 @@
 
 import { useActionState } from 'react'
 
-import SubmitButton from './submit-button'
+import ActionButton from './action-button'
 
 interface AuthFormProps {
 	action: (prevState: any, formData: FormData) => Promise<any>
@@ -29,7 +29,7 @@ export default function AuthForm({
 					className='block w-full p-2 border rounded'
 				/>
 			))}
-			<SubmitButton title={buttonText} />
+			<ActionButton title={buttonText} />
 			{state?.error && <p className='text-red-500'>{state.error}</p>}
 			{state?.success && <p className='text-green-500'>Success!</p>}
 		</form>
