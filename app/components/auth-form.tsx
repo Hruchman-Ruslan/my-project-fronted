@@ -1,6 +1,7 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 import ActionButton from './action-button'
 
@@ -15,7 +16,14 @@ export default function AuthForm({
 	fields,
 	buttonText,
 }: AuthFormProps) {
+	const router = useRouter()
 	const [state, formAction] = useActionState(action, null)
+
+	useEffect(() => {
+		if (state?.success) {
+			router.push('/dashboard')
+		}
+	}, [state, router])
 
 	return (
 		<form action={formAction} className='space-y-4'>
