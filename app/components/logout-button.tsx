@@ -1,10 +1,16 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import { signOut } from '@/app/actions/auth-actions'
 
 export default function LogoutButton() {
+	const router = useRouter()
+
 	const handleClick = async () => {
 		await signOut()
+		router.refresh()
+		router.push('/sign-in')
 	}
 
 	return (
