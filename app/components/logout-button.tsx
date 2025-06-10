@@ -9,7 +9,6 @@ export default function LogoutButton() {
 
 	const handleClick = async () => {
 		await signOut()
-		router.refresh()
 		router.push('/sign-in')
 	}
 
