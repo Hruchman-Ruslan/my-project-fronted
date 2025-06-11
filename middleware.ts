@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
 	const token = request.cookies.get('token')?.value
 	const { pathname } = request.nextUrl
 
-	if (pathname.startsWith('/dashboard')) {
+	if (pathname.startsWith('/home')) {
 		if (!token) {
 			return NextResponse.redirect(new URL('/sign-in', request.url))
 		}
@@ -25,5 +25,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ['/dashboard/:path*'],
+	matcher: ['/home/:path*'],
 }
