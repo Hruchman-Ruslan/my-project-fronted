@@ -21,7 +21,7 @@ export default function AuthForm({
 
 	useEffect(() => {
 		if (state?.success) {
-			router.push('/dashboard')
+			router.push('/home')
 		}
 	}, [state, router])
 

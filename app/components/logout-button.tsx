@@ -9,11 +9,14 @@ export default function LogoutButton() {
 
 	const handleClick = async () => {
 		await signOut()
-		router.push('/sign-in')
+		router.push('/')
 	}
 
 	return (
-		<button onClick={handleClick} className='text-white rounded '>
+		<button
+			onClick={handleClick}
+			className='text-white rounded hover:underline'
+		>
 			Logout
 		</button>
 	)
