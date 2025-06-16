@@ -7,7 +7,11 @@ import ActionButton from './action-button'
 
 interface AuthFormProps {
 	action: (prevState: any, formData: FormData) => Promise<any>
-	fields: { name: string; type: string; placeholder: string }[]
+	fields: {
+		name: string
+		type: 'text' | 'email' | 'password' | 'file'
+		placeholder: string
+	}[]
 	buttonText: string
 }
 

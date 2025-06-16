@@ -67,3 +67,38 @@ export async function signOut() {
 
 	return { success: true }
 }
+
+export async function updateUser(_: any, formData: FormData) {
+	const name = formData.get('name')
+	const email = formData.get('email')
+	const password = formData.get('password')
+	const avatarFile = formData.get('avatarFile') as File | null
+
+	const cookiesStore = await cookies()
+	const token = cookiesStore.get('token')?.value
+
+	const body = new FormData()
+	if (name) body.append('user[username]', name.toString())
+	if (email) body.append('user[email]', email.toString())
+	if (password) body.append('user[password]', password.toString())
+	if (avatarFile) body.append('avatarFile', avatarFile)
+
+	try {
+		const res = await fetch(`${AUTH_URL}/user`, {
+			method: 'PUT',
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+			body,
+		})
+
+		if (!res.ok) {
+			const data = await res.json()
+			return { error: data.message || 'Update failed' }
+		}
+
+		return { success: true }
+	} catch {
+		return { error: 'Something went wrong. Please try again.' }
+	}
+}
