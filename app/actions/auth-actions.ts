@@ -61,11 +61,23 @@ export async function signIn(_: any, formData: FormData) {
 	}
 }
 
-export async function signOut() {
+export async function getCurrentUser() {
 	const cookiesStore = await cookies()
-	cookiesStore.delete('token')
+	const token = cookiesStore.get('token')?.value
 
-	return { success: true }
+	try {
+		const res = await fetch(`${AUTH_URL}/user`, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+
+		const data = await res.json()
+		return data.user
+	} catch {
+		return { error: 'Something went wrong. Please try again.' }
+	}
 }
 
 export async function updateUser(_: any, formData: FormData) {
@@ -101,4 +113,11 @@ export async function updateUser(_: any, formData: FormData) {
 	} catch {
 		return { error: 'Something went wrong. Please try again.' }
 	}
+}
+
+export async function signOut() {
+	const cookiesStore = await cookies()
+	cookiesStore.delete('token')
+
+	return { success: true }
 }

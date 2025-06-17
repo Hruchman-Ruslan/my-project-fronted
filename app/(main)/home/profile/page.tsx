@@ -1,14 +1,22 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { updateUser } from '@/app/actions/auth-actions'
 
 export default function ProfilePage() {
+	const router = useRouter()
 	const [state, formAction] = useActionState(updateUser, {
 		success: false,
 		error: undefined as any,
 	})
+
+	useEffect(() => {
+		if (state.success) {
+			router.push('/home')
+		}
+	}, [state.success, router])
 
 	return (
 		<form action={formAction} className='flex flex-col gap-4'>
