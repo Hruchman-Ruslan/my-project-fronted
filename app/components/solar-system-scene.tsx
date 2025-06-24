@@ -35,6 +35,14 @@ const planets = [
 		size: 0.3,
 		initialAngleOffset: Math.PI * 1.5,
 	},
+	{
+		name: 'Saturn',
+		textureUrl: '/textures/saturn.jpg',
+		distance: 6,
+		size: 0.4,
+		initialAngleOffset: Math.PI * 0.8,
+		hasRing: true,
+	},
 ]
 
 export default function SolarSystemScene() {
@@ -45,6 +53,12 @@ export default function SolarSystemScene() {
 			<ambientLight intensity={0.05} />
 			<Environment background files='/textures/background.jpg' />
 			<Sun />
+			{planets.map(({ distance }) => (
+				<mesh key={`orbit-${distance}`} rotation={[-Math.PI / 2, 0, 0]}>
+					<ringGeometry args={[distance - 0.01, distance + 0.01, 64]} />
+					<meshBasicMaterial color='white' transparent opacity={0.2} />
+				</mesh>
+			))}
 			{planets.map(planet => (
 				<Planet key={planet.name} {...planet} />
 			))}

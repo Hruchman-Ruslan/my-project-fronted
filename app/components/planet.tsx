@@ -12,6 +12,7 @@ interface PlanetProps {
 	distance: number
 	size: number
 	initialAngleOffset?: number
+	hasRing?: boolean
 }
 
 export default function Planet({
@@ -20,6 +21,7 @@ export default function Planet({
 	distance,
 	size,
 	initialAngleOffset = 0,
+	hasRing = false,
 }: PlanetProps) {
 	const router = useRouter()
 	const orbitRef = useRef<Object3D>(null)
@@ -50,6 +52,13 @@ export default function Planet({
 				<sphereGeometry args={[size, 32, 32]} />
 				<meshStandardMaterial map={texture} />
 			</mesh>
+
+			{hasRing && (
+				<mesh rotation={[Math.PI / 2, 0, 0]}>
+					<ringGeometry args={[size + 0.05, size + 0.15, 64]} />
+					<meshBasicMaterial color='gray' side={2} transparent opacity={0.6} />
+				</mesh>
+			)}
 		</group>
 	)
 }
