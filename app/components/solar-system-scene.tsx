@@ -47,7 +47,7 @@ const planets = [
 
 export default function SolarSystemScene() {
 	return (
-		<Canvas camera={{ position: [0, 15, 15], fov: 60 }}>
+		<Canvas camera={{ position: [0, 15, 15], fov: 60 }} dpr={1} shadows>
 			<ambientLight intensity={1.8} />
 			<pointLight position={[0, 0, 0]} intensity={100} />
 			<ambientLight intensity={0.05} />
