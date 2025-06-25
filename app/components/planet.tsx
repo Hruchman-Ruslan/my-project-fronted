@@ -31,7 +31,7 @@ export default function Planet({
 
 	useFrame(({ clock }) => {
 		const t = clock.getElapsedTime()
-		const orbitSpeed = 0.5
+		const orbitSpeed = 0.2
 
 		const angle = initialAngleOffset + t * (orbitSpeed / distance)
 
@@ -49,7 +49,7 @@ export default function Planet({
 				onPointerOver={() => (document.body.style.cursor = 'pointer')}
 				onPointerOut={() => (document.body.style.cursor = 'default')}
 			>
-				<sphereGeometry args={[size, 32, 32]} />
+				<sphereGeometry args={[size, 16, 16]} />
 				<meshStandardMaterial map={texture} />
 			</mesh>
 
