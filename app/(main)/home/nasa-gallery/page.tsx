@@ -1,4 +1,5 @@
 import { getNasaGallery } from '@/app/actions/nasa-actions'
+
 import ItemGallery from '@/app/components/item-gallery'
 
 export default async function NasaGallery() {
