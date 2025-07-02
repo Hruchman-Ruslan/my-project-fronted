@@ -1,3 +1,4 @@
+import ChatBot from '@/app/components/chatbot'
 import Link from 'next/link'
 
 export default function HomePage() {
@@ -7,6 +8,7 @@ export default function HomePage() {
 			<Link href='/solar-system' className='ml-4 text-blue-400 hover:underline'>
 				Go to Solar System
 			</Link>
+			<ChatBot />
 		</div>
 	)
 }
