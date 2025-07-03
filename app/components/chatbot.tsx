@@ -5,17 +5,31 @@ import { useState } from 'react'
 export default function ChatBot() {
 	const [messages, setMessages] = useState<string[]>([])
 	const [input, setInput] = useState('')
+	const [loading, setLoading] = useState(false)
 
-	const sendMessage = () => {
+	const sendMessage = async () => {
 		if (!input.trim()) return
 
-		const newMessages = [...messages, `You: ${input}`]
-		setMessages(newMessages)
+		const userMsg = `You: ${input}`
+		setMessages(prev => [...prev, userMsg])
 		setInput('')
+		setLoading(true)
 
-		setTimeout(() => {
-			setMessages(prev => [...prev, `Bot: ("${input}")`])
-		}, 500)
+		try {
+			const res = await fetch('/api/chat', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ message: input }),
+			})
+
+			const data = await res.json()
+			const botMsg = `Bot: ${data.reply ?? 'No reply'}`
+			setMessages(prev => [...prev, botMsg])
+		} catch {
+			setMessages(prev => [...prev, 'Bot: Failed to respond.'])
+		} finally {
+			setLoading(false)
+		}
 	}
 
 	return (
@@ -38,9 +52,10 @@ export default function ChatBot() {
 				/>
 				<button
 					onClick={sendMessage}
-					className='px-3 py-1 bg-blue-600 rounded text-sm hover:bg-blue-500'
+					disabled={loading}
+					className='px-3 py-1 bg-blue-600 rounded text-sm hover:bg-blue-500 disabled:opacity-50'
 				>
-					Send
+					{loading ? '...' : 'Send'}
 				</button>
 			</div>
 		</div>
